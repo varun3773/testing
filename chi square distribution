@@ -1,0 +1,39 @@
+# importing library 
+  
+from scipy.stats import ncx2   
+    
+numargs = ncx2.numargs  
+a, b = 4.32, 3.18
+rv = ncx2(a, b)  
+    
+print ("RV : \n", rv)
+
+import numpy as np  
+quantile = np.arange (0.01, 1, 0.1)  
+  
+# Random Variates  
+R = ncx2.rvs(a, b)  
+print ("Random Variates : \n", R)  
+  
+# PDF  
+R = ncx2.pdf(a, b, quantile)  
+print ("\nProbability Distribution : \n", R)  
+
+
+import numpy as np  
+import matplotlib.pyplot as plt  
+     
+distribution = np.linspace(0, np.minimum(rv.dist.b, 3))  
+print("Distribution : \n", distribution)  
+     
+plot = plt.plot(distribution, rv.pdf(distribution))  
+
+import matplotlib.pyplot as plt  
+import numpy as np  
+     
+x = np.linspace(0, 5, 100)  
+     
+# Varying positional arguments  
+y1 = ncx2 .pdf(x, 1, 3)  
+y2 = ncx2 .pdf(x, 1, 4)  
+plt.plot(x, y1, "*", x, y2, "r--")  
