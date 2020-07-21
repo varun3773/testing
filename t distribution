@@ -1,0 +1,25 @@
+
+# importing library 
+  
+from scipy.stats import t  
+    
+numargs = t .numargs  
+a, b = 4.32, 3.18
+rv = t (a, b)  
+    
+print ("RV : \n", rv)  
+# Random Variates  
+R = t.rvs(a, b)  
+print ("Random Variates : \n", R)  
+  
+# PDF  
+R = t.pdf(a, b, quantile)  
+print ("\nProbability Distribution : \n", R)
+
+import numpy as np  
+import matplotlib.pyplot as plt  
+     
+distribution = np.linspace(0, np.minimum(rv.dist.b, 3))  
+print("Distribution : \n", distribution)  
+     
+plot = plt.plot(distribution, rv.pdf(distribution))  
