@@ -1,0 +1,738 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 451,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import pandas as pd\n",
+    "import numpy as np"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#  Data Importing from https://www2.stetson.edu/~jrasp/data.htm \n",
+    "# Titanic Dataset "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 452,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df=pd.read_csv(\"Titanic.csv\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 453,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(2201, 6)"
+      ]
+     },
+     "execution_count": 453,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.shape"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 454,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>CLASS</th>\n",
+       "      <th>AGE</th>\n",
+       "      <th>SEX</th>\n",
+       "      <th>SURVIVE</th>\n",
+       "      <th>Unnamed: 4</th>\n",
+       "      <th>CLASS.1</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <td>0</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>0=crew</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>1=first</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>2</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>2=second</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>3</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>3=third</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>4</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>2195</td>\n",
+       "      <td>0</td>\n",
+       "      <td>1</td>\n",
+       "      <td>0</td>\n",
+       "      <td>1</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>2196</td>\n",
+       "      <td>0</td>\n",
+       "      <td>1</td>\n",
+       "      <td>0</td>\n",
+       "      <td>1</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>2197</td>\n",
+       "      <td>0</td>\n",
+       "      <td>1</td>\n",
+       "      <td>0</td>\n",
+       "      <td>1</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>2198</td>\n",
+       "      <td>0</td>\n",
+       "      <td>1</td>\n",
+       "      <td>0</td>\n",
+       "      <td>0</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>2199</td>\n",
+       "      <td>0</td>\n",
+       "      <td>1</td>\n",
+       "      <td>0</td>\n",
+       "      <td>0</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "<p>2200 rows × 6 columns</p>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "      CLASS  AGE  SEX  SURVIVE  Unnamed: 4        CLASS.1\n",
+       "0         1    1    1        1         NaN         0=crew\n",
+       "1         1    1    1        1         NaN        1=first\n",
+       "2         1    1    1        1         NaN       2=second\n",
+       "3         1    1    1        1         NaN        3=third\n",
+       "4         1    1    1        1         NaN            NaN\n",
+       "...     ...  ...  ...      ...         ...            ...\n",
+       "2195      0    1    0        1         NaN            NaN\n",
+       "2196      0    1    0        1         NaN            NaN\n",
+       "2197      0    1    0        1         NaN            NaN\n",
+       "2198      0    1    0        0         NaN            NaN\n",
+       "2199      0    1    0        0         NaN            NaN\n",
+       "\n",
+       "[2200 rows x 6 columns]"
+      ]
+     },
+     "execution_count": 454,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.head(2200)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#  Splitting feature vectors and labels"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 455,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# X is feature vectors\n",
+    "X = df[['CLASS', 'AGE', 'SEX','SURVIVE']]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 456,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>CLASS</th>\n",
+       "      <th>AGE</th>\n",
+       "      <th>SEX</th>\n",
+       "      <th>SURVIVE</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <td>0</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>2</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>3</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>4</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>2195</td>\n",
+       "      <td>0</td>\n",
+       "      <td>1</td>\n",
+       "      <td>0</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>2196</td>\n",
+       "      <td>0</td>\n",
+       "      <td>1</td>\n",
+       "      <td>0</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>2197</td>\n",
+       "      <td>0</td>\n",
+       "      <td>1</td>\n",
+       "      <td>0</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>2198</td>\n",
+       "      <td>0</td>\n",
+       "      <td>1</td>\n",
+       "      <td>0</td>\n",
+       "      <td>0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>2199</td>\n",
+       "      <td>0</td>\n",
+       "      <td>1</td>\n",
+       "      <td>0</td>\n",
+       "      <td>0</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "<p>2200 rows × 4 columns</p>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "      CLASS  AGE  SEX  SURVIVE\n",
+       "0         1    1    1        1\n",
+       "1         1    1    1        1\n",
+       "2         1    1    1        1\n",
+       "3         1    1    1        1\n",
+       "4         1    1    1        1\n",
+       "...     ...  ...  ...      ...\n",
+       "2195      0    1    0        1\n",
+       "2196      0    1    0        1\n",
+       "2197      0    1    0        1\n",
+       "2198      0    1    0        0\n",
+       "2199      0    1    0        0\n",
+       "\n",
+       "[2200 rows x 4 columns]"
+      ]
+     },
+     "execution_count": 456,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "X.head(2200)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 457,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Y is labels"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 458,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "Y = df[['SURVIVE']]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 459,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>SURVIVE</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <td>0</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>2</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>3</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>4</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>2195</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>2196</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>2197</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>2198</td>\n",
+       "      <td>0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>2199</td>\n",
+       "      <td>0</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "<p>2200 rows × 1 columns</p>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "      SURVIVE\n",
+       "0           1\n",
+       "1           1\n",
+       "2           1\n",
+       "3           1\n",
+       "4           1\n",
+       "...       ...\n",
+       "2195        1\n",
+       "2196        1\n",
+       "2197        1\n",
+       "2198        0\n",
+       "2199        0\n",
+       "\n",
+       "[2200 rows x 1 columns]"
+      ]
+     },
+     "execution_count": 459,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "Y.head(2200)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#  Correlation Matrix of features"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 460,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "            CLASS       AGE       SEX   SURVIVE\n",
+      "CLASS    1.000000 -0.229181 -0.258094 -0.000228\n",
+      "AGE     -0.229181  1.000000  0.111013 -0.097575\n",
+      "SEX     -0.258094  0.111013  1.000000 -0.455605\n",
+      "SURVIVE -0.000228 -0.097575 -0.455605  1.000000\n"
+     ]
+    }
+   ],
+   "source": [
+    "correlation_matrix = X.corr() #Transposing Features and passing it into numpy Covarience matrix\n",
+    "print(correlation_matrix)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#  Eigen Vectors and Eigen Values from Covariance Matrix"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 461,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Lingalg.eig() is used to calculate Eigen values and Eigen Vectors\n",
+    "eig_values, eig_vectors = np.linalg.eig(correlation_matrix)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 462,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Eigenvectors \n",
+      "[[-0.40810061  0.38873944 -0.59863162  0.56918866]\n",
+      " [ 0.35810006  0.13693342  0.55015855  0.74184847]\n",
+      " [ 0.64337804  0.67951463 -0.24156092 -0.25685187]\n",
+      " [-0.53970634  0.60695202  0.52973019 -0.24436087]]\n"
+     ]
+    }
+   ],
+   "source": [
+    "print('Eigenvectors \\n%s' %eig_vectors)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 463,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "array([1.60769085, 0.46776658, 1.10667919, 0.81786338])"
+      ]
+     },
+     "execution_count": 463,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "eig_values"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 464,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "eig_values=np.sort(eig_values)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 465,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "\n",
+      "  Eigen Values \n",
+      " [0.46776658 0.81786338 1.10667919 1.60769085]\n"
+     ]
+    }
+   ],
+   "source": [
+    "print('\\n  Eigen Values \\n %s' %np.sort(eig_values))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 466,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "67.85925085597425"
+      ]
+     },
+     "execution_count": 466,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# I reduce dimension to 2 dimension, since 2 eigenvector has 67.85% variances\n",
+    "(100*((eig_values[3]+eig_values[2] )/ sum(eig_values)))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Projecting data point onto selected Eigen Vector"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 467,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "array([-0.40810061,  0.35810006,  0.64337804, -0.53970634])"
+      ]
+     },
+     "execution_count": 467,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "eig_vectors.T[0]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 468,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "array([-0.59863162,  0.55015855, -0.24156092,  0.52973019])"
+      ]
+     },
+     "execution_count": 468,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "eig_vectors.T[2]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 469,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "PC1 = X.dot(eig_vectors.T[0])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 470,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "PC2 = X.dot(eig_vectors.T[2])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 471,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "0       0.053671\n",
+       "1       0.053671\n",
+       "2       0.053671\n",
+       "3       0.053671\n",
+       "4       0.053671\n",
+       "          ...   \n",
+       "2196   -0.181606\n",
+       "2197   -0.181606\n",
+       "2198    0.358100\n",
+       "2199    0.358100\n",
+       "2200    0.358100\n",
+       "Length: 2201, dtype: float64"
+      ]
+     },
+     "execution_count": 471,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "PC1"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 472,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "result = pd.DataFrame({'PC1':PC1,'PC2':PC2})\n",
+    "result['Survive'] = Y"
+   ]
+  },
+  
